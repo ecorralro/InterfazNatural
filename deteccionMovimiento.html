@@ -23,6 +23,8 @@
             contexto2.fillStyle = "rgba(255,255,255,0.01)"
             var cuadrosx = []
             var cuadrosy = []
+            var atencionx = []
+            var atenciony = []
             // el paso es cada cuantos pixeles voy a realizar una comparación
             const paso = 16;
             // Creo un contenedor para los pixeles del fotograma anterior
@@ -42,6 +44,7 @@
                 cuadrosx = []
                 cuadrosy = []
                 // Creo una capa semitransrente
+                contexto2.fillStyle = "rgba(255,255,255,0.01)"
                 contexto2.fillRect(0,0,640,480) 
                 // En el canvas pego el video
                 contexto.drawImage(
@@ -123,6 +126,23 @@
                     }
                 });
                 if(maxx != 0){
+                    atencionx.push(maxx)
+                    atenciony.push(maxy)
+                    if(atencionx.length > 10){
+                        atencionx.splice(0,1)
+                        atenciony.splice(0,1)
+                    }
+                    let sumax = 0;
+                    let sumay = 0;
+                    for(let i = 0;i<10;i++){
+                        sumax += atencionx[i]
+                        sumay += atenciony[i]
+                    }
+                    sumax /= 10
+                    sumay /= 10
+                    
+                    
+                   
                     // Linea en vertical
                     contexto2.beginPath();
                     contexto2.moveTo(maxx,0)
@@ -138,6 +158,16 @@
                     contexto2.beginPath()
                     contexto2.arc(maxx,maxy,30,0,Math.PI*2,true)
                     contexto2.stroke()
+                    
+                    // Dibujo un circulo de atención
+                    contexto2.fillStyle = "red"
+                    contexto2.beginPath()
+                    contexto2.arc(
+                        sumax,
+                        sumay,
+                        10,0,Math.PI*2,true)
+                    contexto2.fill()
+                    console.log(sumax+","+sumay)
                 }
                 
                 contador++;
