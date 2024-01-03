@@ -69,10 +69,17 @@
                     for(let i = 0;i<pixelesnuevos.length;i++){
                         let rojonuevo = pixelesnuevos[i].data[0]
                         let rojoviejo = pixelesviejos[i].data[0]
+                        let verdenuevo = pixelesnuevos[i].data[1]
+                        let verdeviejo = pixelesviejos[i].data[1]
+                        let azulnuevo = pixelesnuevos[i].data[2]
+                        let azulviejo = pixelesviejos[i].data[2]
                         // Y comparo los valores
-                        let diferencia = Math.abs(rojonuevo-rojoviejo)
+                        let diferenciarojo = Math.abs(rojonuevo-rojoviejo)
+                        let diferenciaverde = Math.abs(verdenuevo-verdeviejo)
+                        let diferenciaazul = Math.abs(azulnuevo-azulviejo)
+                        let promedio = (diferenciarojo + diferenciaverde + diferenciaazul)/3
                         // Si la diferencia es grande, es que hay movimiento
-                        if(diferencia > 20){
+                        if(promedio > 20){
                             // Si hay movimiento, dibuja un cuadro
                             contexto2.strokeRect(
                                 pixelesnuevos[i].x,
